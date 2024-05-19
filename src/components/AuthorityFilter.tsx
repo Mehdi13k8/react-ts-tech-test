@@ -1,6 +1,7 @@
 import React from "react";
+import { AuthorityFilterProps } from "../api/types";
 
-const AuthorityFilter = ({ authorities, onSelectAuthority }) => {
+const AuthorityFilter: React.FC<AuthorityFilterProps> = ({ authorities, onSelectAuthority }) => {
   return (
     <div>
       <label htmlFor="authority">Filter by Authority: </label>

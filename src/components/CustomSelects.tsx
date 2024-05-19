@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import { AuthorityType } from "../api/types";
+import { Authority, AuthorityType, AuthorityFilterProps, CountriesType } from "../api/types";
 
 const customStyles = {
   option: (provided: any, state: any) => ({
@@ -24,9 +24,9 @@ const customStyles = {
   })
 };
 
-const AuthoritiesSelect = ({ authorities, onSelectAuthority, selectedAuthority }) => {
+const AuthoritiesSelect = ({ authorities, onSelectAuthority, selectedAuthority }: any) => {
   console.log(authorities);
-  const options = authorities?.authorities?.map((authority) => ({
+  const options = authorities?.authorities?.map((authority: AuthorityType) => ({
     value: authority.LocalAuthorityId,
     label: authority.Name,
   }));
@@ -36,14 +36,15 @@ const AuthoritiesSelect = ({ authorities, onSelectAuthority, selectedAuthority }
       options={options}
       onChange={(selectedOption) => onSelectAuthority(selectedOption ? selectedOption.value : null)}
       placeholder="Select Authority"
-      value={selectedAuthority ? { value: selectedAuthority, label: authorities.authorities.find((authority) => authority.LocalAuthorityId === selectedAuthority)?.Name } : null}
+      value={selectedAuthority ? { value: selectedAuthority, label: authorities.authorities.find((authority: AuthorityType) => authority.LocalAuthorityId === selectedAuthority)?.Name } : null}
+      isClearable
       styles={customStyles}
     />
   );
 };
 
-const CountriesSelect = ({ countries, onSelectCountry, countrySelected }) => {
-  const options = countries.map((country) => ({
+const CountriesSelect = ({ countries, onSelectCountry, countrySelected }: any) => {
+  const options = countries.map((country: CountriesType) => ({
     value: country.id,
     label: country.name,
   }));
@@ -53,7 +54,8 @@ const CountriesSelect = ({ countries, onSelectCountry, countrySelected }) => {
       options={options}
       onChange={(selectedOption) => onSelectCountry(selectedOption ? selectedOption.value : null)}
       placeholder="Select Country"
-      value={countrySelected ? { value: countrySelected, label: countries.find((country) => country.id === countrySelected)?.name } : null}
+      value={countrySelected ? { value: countrySelected, label: countries.find((country: CountriesType) => country.id === countrySelected)?.name } : null}
+      isClearable
       styles={customStyles}
     />
   );

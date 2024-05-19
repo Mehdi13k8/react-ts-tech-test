@@ -1,6 +1,5 @@
-const buttonStyle = {
-  margin: "0 5px",
-};
+import React from "react";
+import "./EstablishmentsTableNavigation.css";
 
 type EstablishmentsTableNavigationType = {
   pageNum: number;
@@ -15,27 +14,23 @@ export const EstablishmentsTableNavigation = (
   const { pageNum, pageCount, onPreviousPage, onNextPage } = props;
   return (
     <nav>
-      {
-        <button
-          type="button"
-          style={buttonStyle}
-          disabled={pageNum <= 1}
-          onClick={onPreviousPage}
-        >
-          -
-        </button>
-      }
-      {pageNum}
-      {
-        <button
-          type="button"
-          style={buttonStyle}
-          disabled={pageNum >= pageCount}
-          onClick={onNextPage}
-        >
-          +
-        </button>
-      }
+      <button
+        type="button"
+        className="button"
+        disabled={pageNum <= 1}
+        onClick={onPreviousPage}
+      >
+        Previous
+      </button>
+      <span>{pageNum}</span>
+      <button
+        type="button"
+        className="button"
+        disabled={pageNum >= pageCount}
+        onClick={onNextPage}
+      >
+        Next
+      </button>
     </nav>
   );
 };

@@ -26,3 +26,15 @@ export type AuthoritiesResponseType = {
     };
     links: { rel: string; href: string }[];
 };
+
+export interface Authority {
+    LocalAuthorityId: string;
+    id: string;
+    name: string;
+  }
+
+export interface AuthorityFilterProps {
+    authorities: Authority[];
+    onSelectAuthority: (authorityId: string | null) => void;
+  }
+  

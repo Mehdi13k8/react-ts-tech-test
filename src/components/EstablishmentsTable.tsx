@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { EstablishmentsTableRow } from "./EstablishmentsTableRow";
 import PropTypes from "prop-types";
+import EstablishmentDetails from "./EstablishmentDetails";
 
 const headerStyle: { [key: string]: string | number } = {
   paddingBottom: "10px",
@@ -10,31 +11,55 @@ const headerStyle: { [key: string]: string | number } = {
 
 export const EstablishmentsTable: React.FC<{
   establishments: { [key: string]: string }[] | null | undefined;
-}> = ({ establishments }) => {
+  onFavorite: (establishment: { [key: string]: string }) => void;
+  onNotFavorite: (establishment: { [key: string]: string }) => void;
+  onRemove: (establishment: { [key: string]: string }) => void;
+  flag: string;
+}> = ({ establishments, onFavorite, onNotFavorite, onRemove, flag }) => {
+  const [selectedEstablishmentId, setSelectedEstablishmentId] = useState<string | null>(null);
+  const handleSelect = (id: string) => {
+    setSelectedEstablishmentId(id);
+  };
+
+  const handleBack = () => {
+    setSelectedEstablishmentId(null);
+  };
+
   return (
-    <table>
-      <tbody>
-        <tr>
-          <th style={headerStyle}>Business Name</th>
-          <th style={headerStyle}>Rating Value</th>
-        </tr>
-        {establishments &&
-          establishments?.map(
-            (
-              establishment: { [key: string]: string } | null | undefined,
-              index: React.Key | null | undefined
-            ) => (
+    <div>
+      {selectedEstablishmentId ? (
+        <EstablishmentDetails id={selectedEstablishmentId} onBack={handleBack} />
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Business Name</th>
+              <th>Rating Value</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {establishments && establishments.map((establishment) => (
               <EstablishmentsTableRow
-                key={index}
+                key={establishment.FHRSID}
                 establishment={establishment}
+                onSelect={handleSelect}
+                onFavorite={onFavorite}
+                onNotFavorite={onNotFavorite}
+                onRemove={onRemove}
+                flag={flag}
               />
-            )
-          )}
-      </tbody>
-    </table>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
 EstablishmentsTable.propTypes = {
   establishments: PropTypes.array,
+  onFavorite: PropTypes.func.isRequired,
+  onNotFavorite: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
