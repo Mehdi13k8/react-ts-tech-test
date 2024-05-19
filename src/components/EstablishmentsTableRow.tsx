@@ -17,7 +17,6 @@ export const EstablishmentsTableRow: React.FC<{
   flag: string;
 }> = ({ establishment, onSelect, onFavorite, onNotFavorite, onRemove, flag }) => {
 
-  console.log("Flagggs =>", flag);
   const tdStyleRedirect: { [key: string]: string | number } = {
     fontSize: "20px",
     cursor: "pointer",

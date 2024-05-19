@@ -168,6 +168,12 @@ export const PaginatedEstablishmentsTable = () => {
                 />
               </>
             )}
+            <EstablishmentsTableNavigation
+              pageNum={pageNum}
+              pageCount={pageCount}
+              onPreviousPage={handlePreviousPage}
+              onNextPage={handleNextPage}
+            />
           </>
         )}
       </div>
